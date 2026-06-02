@@ -1,4 +1,4 @@
-"""FastAPI backend for the fitness dashboard."""
+  """FastAPI backend for the fitness dashboard."""
 from __future__ import annotations
 
 from datetime import datetime, timezone
@@ -6,26 +6,15 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 load_dotenv()
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-
-from cache import ttl_cache
-import garmin_client as gc
-import strava_client as sc
-import coach
-
 
 app = FastAPI(title="Fitness Dashboard")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
+      allow_origins=[
         "http://localhost:5173", "http://127.0.0.1:5173",
         "http://localhost:5174", "http://127.0.0.1:5174",
     ],
-    allow_methods=["*"],
-    allow_headers=["*"],
 )
 
 
@@ -122,7 +111,17 @@ def chat(req: ChatRequest):
 
 def _parse_ts(s):
     """Parse an ISO timestamp robustly. Returns aware UTC datetime or None."""
-    if not isinstance(s, str):
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from cache import ttl_cache
+import garmin_client as gc
+import strava_client as sc
+
+import coach
+
+
+   if not isinstance(s, str):
         return None
     try:
         s2 = s.replace("Z", "+00:00")
@@ -139,7 +138,8 @@ def _merge(strava, garmin):
     """Deduplicate by start time within 5 minutes; prefer Strava."""
     merged = []
     seen = []
-    combined = [a for a in (strava + garmin) if isinstance(a, dict) and a.get("start_time")]
+    combined = [a for a in (strava + garmin)
+                if isinstance(a, dict) and a.get("start_time")]
     combined.sort(key=lambda x: x.get("start_time") or "", reverse=True)
     for act in combined:
         t = _parse_ts(act["start_time"])
