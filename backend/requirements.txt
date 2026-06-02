@@ -1,7 +1,8 @@
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-garminconnect==0.2.20
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+garminconnect==0.2.25
+garth==0.5.5
 requests==2.32.3
 python-dotenv==1.0.1
-anthropic==0.39.0
-pydantic==2.9.2
+groq==0.13.0
+pydantic==2.10.3
